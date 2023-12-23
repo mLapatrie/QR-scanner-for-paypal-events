@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 answerText = "<h2 style='background-color: red;'>Incorrect</h2>"
             }
 
-            contentDisplay.innerHTML = answerText + "</br><button onclick='moreInfo()'>Plus d'information</button></br></br><button onclick='nextScan()'>Prochain</button>";
+            contentDisplay.innerHTML = answerText + "</br><button id='moreInfo'>Plus d'information</button></br></br><button id='nextScan'>Prochain</button>";
             
             moreInfoButton = document.getElementById('moreInfo');
             nextScanButton = document.getElementById('nextScan');
