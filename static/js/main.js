@@ -34,18 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 answerText = "<h2 style='background-color: red;'>Incorrect</h2>"
             }
 
-            contentDisplay.innerHTML = answerText + "</br><button id='moreInfo'>Plus d'information</button></br></br><button id='nextScan'>Prochain</button>";
-            
-            moreInfoButton = document.getElementById('moreInfo');
-            nextScanButton = document.getElementById('nextScan');
-
-            moreInfoButton.addEventListener('touchend', () => {
-                moreInfo();
-            })
-
-            nextScanButton.addEventListener('touchend', () => {
-                nextScan();
-            })
+            contentDisplay.innerHTML = answerText;
         })
         .catch(error => console.error('Error fetching URL:', error));
     }
@@ -63,13 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function moreInfo() {
     var contentDisplay = document.getElementById('content-display');
-    contentDisplay.innerHTML = htmlContent + "</br><button id="nextScan">Prochain</button>";
-    
-    nextScanButton = document.getElementById('nextScan');
-
-    nextScanButton.addEventListener('touchend', () => {
-        nextScan();
-    })
+    contentDisplay.innerHTML = htmlContent;
 }
 
 
