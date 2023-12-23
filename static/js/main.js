@@ -1,43 +1,58 @@
 
 var htmlContent;
+var lastURL;
 
 var moreInfoButton = document.getElementById('moreInfo');
 var nextScanButton = document.getElementById('nextScan');
 
+
+moreInfoButton.addEventListener("click", () => {
+    moreInfo()
+})
+
+nextScanButton.addEventListener("click", () => {
+    nextScan()
+})
+
 document.addEventListener('DOMContentLoaded', function() {
     function onScanSuccess(decodedText, decodedResult) {
-        console.log("hello")
-        // Send the decodedText (URL) to the Flask server
-        fetch('/fetch-url', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ url: decodedText })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Display the fetched content
-            var scan = document.getElementById('qr-scanner');
-            var contentDisplay = document.getElementById('content-display');
-            scan.classList.add("hidden");
 
-            htmlContent = data.content
+        if (decodedText != lastURL) {
 
-            answerText = ""
+            lastURL = decodedText;
 
-            console.log(data.ticket_scanned)
+            // Send the decodedText (URL) to the Flask server
+            fetch('/fetch-url', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: decodedText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the fetched content
+                var scan = document.getElementById('qr-scanner');
+                var contentDisplay = document.getElementById('content-display');
+                scan.classList.add("hidden");
 
-            if (data.ticket_scanned == "No") {
-                answerText = "<h2 style='background-color: greenyellow;'>Correct</h2>" + data.tickets_type + "</br>";
-            }
-            else {
-                answerText = "<h2 style='background-color: red;'>Incorrect</h2>"
-            }
+                htmlContent = data.content
 
-            contentDisplay.innerHTML = answerText;
-        })
-        .catch(error => console.error('Error fetching URL:', error));
+                answerText = ""
+
+                if (data.ticket_scanned == "No") {
+                    answerText = "<h2 style='background-color: greenyellow;'>Correct</h2>" + data.tickets_type + "</br>";
+                }
+                else {
+                    answerText = "<h2 style='background-color: red;'>Incorrect</h2>"
+                }
+
+                contentDisplay.innerHTML = answerText;
+
+            })
+            .catch(error => console.error('Error fetching URL:', error));
+        }
+        
     }
 
     function onScanFailure(error) {
@@ -50,13 +65,17 @@ document.addEventListener('DOMContentLoaded', function() {
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 });
 
-
 function moreInfo() {
     var contentDisplay = document.getElementById('content-display');
     contentDisplay.innerHTML = htmlContent;
 }
 
 
+function nextScan() {
+    document.getElementById('qr-scanner').classList.remove("hidden");
+    document.getElementById('content-display').innerHTML = '';
+    lastURL = "";
+}
 function nextScan() {
     document.getElementById('qr-scanner').classList.remove("hidden");
     document.getElementById('content-display').innerHTML = '';
