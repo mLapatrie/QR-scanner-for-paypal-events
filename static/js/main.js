@@ -1,6 +1,8 @@
 
 var htmlContent;
 
+var moreInfoButton = document.getElementById('moreInfo');
+var nextScanButton = document.getElementById('nextScan');
 
 document.addEventListener('DOMContentLoaded', function() {
     function onScanSuccess(decodedText, decodedResult) {
@@ -33,6 +35,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             contentDisplay.innerHTML = answerText + "</br><button onclick='moreInfo()'>Plus d'information</button></br></br><button onclick='nextScan()'>Prochain</button>";
+            
+            moreInfoButton = document.getElementById('moreInfo');
+            nextScanButton = document.getElementById('nextScan');
+
+            moreInfoButton.addEventListener('click', () => {
+                moreInfo();
+            })
+
+            nextScanButton.addEventListener('click', () => {
+                nextScan();
+            })
         })
         .catch(error => console.error('Error fetching URL:', error));
     }
