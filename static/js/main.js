@@ -6,6 +6,7 @@ var nextScanButton = document.getElementById('nextScan');
 
 document.addEventListener('DOMContentLoaded', function() {
     function onScanSuccess(decodedText, decodedResult) {
+        console.log("hello")
         // Send the decodedText (URL) to the Flask server
         fetch('/fetch-url', {
             method: 'POST',
