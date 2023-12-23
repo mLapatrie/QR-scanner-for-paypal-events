@@ -63,7 +63,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function moreInfo() {
     var contentDisplay = document.getElementById('content-display');
-    contentDisplay.innerHTML = htmlContent + "</br><button onclick='nextScan()'>Prochain</button>";
+    contentDisplay.innerHTML = htmlContent + "</br><button id="nextScan">Prochain</button>";
+    
+    nextScanButton = document.getElementById('nextScan');
+
+    nextScanButton.addEventListener('touchend', () => {
+        nextScan();
+    })
 }
 
 
