@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
             moreInfoButton = document.getElementById('moreInfo');
             nextScanButton = document.getElementById('nextScan');
 
-            moreInfoButton.addEventListener('click', () => {
+            moreInfoButton.addEventListener('touchend', () => {
                 moreInfo();
             })
 
-            nextScanButton.addEventListener('click', () => {
+            nextScanButton.addEventListener('touchend', () => {
                 nextScan();
             })
         })
